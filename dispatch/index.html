@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rising Airlines Dispatch Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: #0a0f18;
+      color: #e8eef7;
+    }
+
+    header {
+      background: #112033;
+      padding: 25px;
+      text-align: center;
+      border-bottom: 2px solid #1f3a5f;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+    }
+    header p {
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      border-left: 5px solid #3f7ad9;
+      padding-left: 10px;
+    }
+
+    .form-box {
+      background: #111b2b;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #1f3a5f;
+      margin-bottom: 40px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #3f7ad9;
+      background: #0d1624;
+      color: #e8eef7;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #1e4f91;
+      border: 1px solid #3f7ad9;
+      color: white;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover {
+      background: #2a65b8;
+    }
+
+    iframe {
+      width: 100%;
+      height: 900px;
+      border: none;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #112033;
+      border-top: 1px solid #1f3a5f;
+      margin-top: 40px;
+      opacity: 0.8;
+    }
+  </style>
+
+  <script>
+    function generateOFP() {
+      const dep = document.getElementById("dep").value;
+      const arr = document.getElementById("arr").value;
+      const callsign = document.getElementById("callsign").value;
+      const aircraft = document.getElementById("aircraft").value;
+      const cruise = document.getElementById("cruise").value;
+      const pax = document.getElementById("pax").value;
+      const cargo = document.getElementById("cargo").value;
+
+      const url =
+        "https://www.simbrief.com/api/xml.fetcher.php?" +
+        "origin=" + dep +
+        "&destination=" + arr +
+        "&callsign=" + callsign +
+        "&aircraft=" + aircraft +
+        "&cruise_level=" + cruise +
+        "&pax=" + pax +
+        "&cargo=" + cargo;
+
+      document.getElementById("ofpFrame").src = url;
+    }
+  </script>
+</head>
+
+<body>
+
+  <header>
+    <h1>Rising Airlines Dispatch Center</h1>
+    <p>SimBrief API • Fleet Integration • Real Airline Workflow</p>
+  </header>
+
+  <main>
+
+    <h2>Flight Plan Generator</h2>
+
+    <div class="form-box">
+
+      <label>Departure Airport</label>
+      <input id="dep" placeholder="YSSY">
+
+      <label>Arrival Airport</label>
+      <input id="arr" placeholder="YMML">
+
+      <label>Callsign (RAL###)</label>
+      <input id="callsign" placeholder="RAL123">
+
+      <label>Aircraft</label>
+      <select id="aircraft">
+        <option value="RAL-B738-1">RAL-B738-1</option>
+        <option value="RAL-B738-2">RAL-B738-2</option>
+        <option value="RAL-B738-3">RAL-B738-3</option>
+      </select>
+
+      <label>Cruise Level</label>
+      <input id="cruise" placeholder="350">
+
+      <label>Passengers</label>
+      <input id="pax" placeholder="150">
+
+      <label>Cargo (kg)</label>
+      <input id="cargo" placeholder="1200">
+
+      <button onclick="generateOFP()">Generate OFP</button>
+    </div>
+
+    <h2>Operational Flight Plan</h2>
+    <iframe id="ofpFrame"></iframe>
+
+  </main>
+
+  <footer>
+    Rising Airlines Dispatch • Powered by SimBrief  
+    <br>
+    Owned by E‑Pix & IT Helpers ’R’ US  
+    <br>
+    <a href="https://ithelpersrus.ddnsfree.com">ithelpersrus.ddnsfree.com</a>
+  </footer>
+
+</body>
+</html>
