@@ -99,13 +99,13 @@
 
   <script>
     function generateOFP() {
-      const dep = document.getElementById("dep").value;
-      const arr = document.getElementById("arr").value;
-      const callsign = document.getElementById("callsign").value;
+      const dep = document.getElementById("dep").value.trim().toUpperCase();
+      const arr = document.getElementById("arr").value.trim().toUpperCase();
+      const callsign = document.getElementById("callsign").value.trim().toUpperCase();
       const aircraft = document.getElementById("aircraft").value;
-      const cruise = document.getElementById("cruise").value;
-      const pax = document.getElementById("pax").value;
-      const cargo = document.getElementById("cargo").value;
+      const cruise = document.getElementById("cruise").value.trim();
+      const pax = document.getElementById("pax").value.trim();
+      const cargo = document.getElementById("cargo").value.trim();
 
       const url =
         "https://www.simbrief.com/api/xml.fetcher.php?" +
@@ -115,7 +115,8 @@
         "&aircraft=" + aircraft +
         "&cruise_level=" + cruise +
         "&pax=" + pax +
-        "&cargo=" + cargo;
+        "&cargo=" + cargo +
+        "&userid=1314365";  // REQUIRED for your custom airframe
 
       document.getElementById("ofpFrame").src = url;
     }
@@ -147,8 +148,6 @@
       <label>Aircraft</label>
       <select id="aircraft">
         <option value="1314365_1775793105498">RAL-B738-1</option>
-        <option value="RAL-B738-2">RAL-B738-2</option>
-        <option value="RAL-B738-3">RAL-B738-3</option>
       </select>
 
       <label>Cruise Level</label>
