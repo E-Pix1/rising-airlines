@@ -1,32 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Rising Airlines Dispatch Center</title>
+  <title>Rising Airlines Dispatch</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f4ff;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: #0033cc;
-      color: white;
+      font-family: Arial;
+      background: #eef3ff;
       padding: 20px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
     }
 
-    .container {
-      width: 90%;
-      max-width: 700px;
-      margin: 30px auto;
+    h1 {
+      text-align: center;
+      color: #0033cc;
+    }
+
+    .box {
       background: white;
-      padding: 25px;
+      padding: 20px;
       border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
@@ -36,7 +29,7 @@
       margin-top: 15px;
     }
 
-    input, select {
+    input {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -46,7 +39,7 @@
     }
 
     button {
-      margin-top: 25px;
+      margin-top: 20px;
       width: 100%;
       padding: 15px;
       background: #0033cc;
@@ -62,37 +55,31 @@
     }
   </style>
 </head>
+
 <body>
 
-<header>Rising Airlines Dispatch Center</header>
+<h1>Rising Airlines Dispatch</h1>
 
-<div class="container">
+<div class="box">
   <form action="http://13.75.216.37:3000/api/create_ofp" method="POST">
 
     <label>SimBrief User ID</label>
-    <input type="text" name="userid" placeholder="Your SimBrief ID" required>
+    <input name="userid" required>
 
     <label>Flight Number</label>
-    <input type="text" name="flight_number" placeholder="RA123" required>
+    <input name="flight_number" placeholder="RA123" required>
 
     <label>Origin Airport</label>
-    <input type="text" name="origin" placeholder="YSSY" required>
+    <input name="origin" placeholder="YSSY" required>
 
     <label>Destination Airport</label>
-    <input type="text" name="destination" placeholder="YMML" required>
+    <input name="destination" placeholder="YMML" required>
 
     <label>Aircraft Type</label>
-    <select name="aircraft" required>
-      <option value="A20N">Airbus A320neo</option>
-      <option value="A320">Airbus A320</option>
-      <option value="B738">Boeing 737-800</option>
-      <option value="B39M">Boeing 737 MAX 9</option>
-      <option value="B789">Boeing 787-9</option>
-      <option value="A359">Airbus A350-900</option>
-    </select>
+    <input name="Boeing 737-800" placeholder="B738" required>
 
     <label>Route (optional)</label>
-    <input type="text" name="route" placeholder="DCT">
+    <input name="route" placeholder="DCT">
 
     <button type="submit">Generate OFP</button>
   </form>
