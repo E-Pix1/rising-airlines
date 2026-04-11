@@ -3,177 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <title>Rising Airlines Dispatch Center</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: #f0f4ff;
       margin: 0;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      background: #0a0f18;
-      color: #e8eef7;
+      padding: 0;
     }
 
     header {
-      background: #112033;
-      padding: 25px;
-      text-align: center;
-      border-bottom: 2px solid #1f3a5f;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.4rem;
-    }
-    header p {
-      opacity: 0.8;
-      margin-top: 6px;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 30px 20px;
-    }
-
-    h2 {
-      margin-top: 40px;
-      border-left: 5px solid #3f7ad9;
-      padding-left: 10px;
-    }
-
-    .form-box {
-      background: #111b2b;
+      background: #0033cc;
+      color: white;
       padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #1f3a5f;
-      margin-bottom: 40px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     label {
+      font-weight: bold;
       display: block;
       margin-top: 15px;
-      margin-bottom: 5px;
-      font-weight: 600;
     }
 
     input, select {
       width: 100%;
       padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #3f7ad9;
-      background: #0d1624;
-      color: #e8eef7;
-      font-size: 1rem;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
 
     button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #1e4f91;
-      border: 1px solid #3f7ad9;
-      color: white;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    button:hover {
-      background: #2a65b8;
-    }
-
-    iframe {
+      margin-top: 25px;
       width: 100%;
-      height: 900px;
+      padding: 15px;
+      background: #0033cc;
+      color: white;
       border: none;
-      margin-top: 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #112033;
-      border-top: 1px solid #1f3a5f;
-      margin-top: 40px;
-      opacity: 0.8;
+    button:hover {
+      background: #002699;
     }
   </style>
-
-  <script>
-    function generateOFP() {
-      const dep = document.getElementById("dep").value.trim().toUpperCase();
-      const arr = document.getElementById("arr").value.trim().toUpperCase();
-      const callsign = document.getElementById("callsign").value.trim().toUpperCase();
-      const aircraft = document.getElementById("aircraft").value;
-      const cruise = document.getElementById("cruise").value.trim();
-      const pax = document.getElementById("pax").value.trim();
-      const cargo = document.getElementById("cargo").value.trim();
-
-      const url =
-        "https://www.simbrief.com/api/xml.fetcher.php?" +
-        "origin=" + dep +
-        "&destination=" + arr +
-        "&callsign=" + callsign +
-        "&aircraft=" + aircraft +
-        "&cruise_level=" + cruise +
-        "&pax=" + pax +
-        "&cargo=" + cargo +
-        "&userid=1314365";  // REQUIRED for your custom airframe
-
-      document.getElementById("ofpFrame").src = url;
-    }
-  </script>
 </head>
-
 <body>
 
-  <header>
-    <h1>Rising Airlines Dispatch Center</h1>
-    <p>SimBrief API • Fleet Integration • Real Airline Workflow</p>
-  </header>
+<header>Rising Airlines Dispatch Center</header>
 
-  <main>
+<div class="container">
+  <form action="http://13.75.216.37:3000/api/create_ofp" method="POST">
 
-    <h2>Flight Plan Generator</h2>
+    <label>SimBrief User ID</label>
+    <input type="text" name="userid" placeholder="Your SimBrief ID" required>
 
-    <div class="form-box">
+    <label>Flight Number</label>
+    <input type="text" name="flight_number" placeholder="RA123" required>
 
-      <label>Departure Airport</label>
-      <input id="dep" placeholder="YSSY">
+    <label>Origin Airport</label>
+    <input type="text" name="origin" placeholder="YSSY" required>
 
-      <label>Arrival Airport</label>
-      <input id="arr" placeholder="YMML">
+    <label>Destination Airport</label>
+    <input type="text" name="destination" placeholder="YMML" required>
 
-      <label>Callsign (RAL###)</label>
-      <input id="callsign" placeholder="RAL123">
+    <label>Aircraft Type</label>
+    <select name="aircraft" required>
+      <option value="A20N">Airbus A320neo</option>
+      <option value="A320">Airbus A320</option>
+      <option value="B738">Boeing 737-800</option>
+      <option value="B39M">Boeing 737 MAX 9</option>
+      <option value="B789">Boeing 787-9</option>
+      <option value="A359">Airbus A350-900</option>
+    </select>
 
-      <label>Aircraft</label>
-      <select id="aircraft">
-        <option value="1314365_1775793105498">RAL-B738-1</option>
-      </select>
+    <label>Route (optional)</label>
+    <input type="text" name="route" placeholder="DCT">
 
-      <label>Cruise Level</label>
-      <input id="cruise" placeholder="350">
-
-      <label>Passengers</label>
-      <input id="pax" placeholder="150">
-
-      <label>Cargo (kg)</label>
-      <input id="cargo" placeholder="1200">
-
-      <button onclick="generateOFP()">Generate OFP</button>
-    </div>
-
-    <h2>Operational Flight Plan</h2>
-    <iframe id="ofpFrame"></iframe>
-
-  </main>
-
-  <footer>
-    Rising Airlines Dispatch • Powered by SimBrief  
-    <br>
-    Owned by E‑Pix & IT Helpers ’R’ US  
-    <br>
-    <a href="https://ithelpersrus.ddnsfree.com">ithelpersrus.ddnsfree.com</a>
-  </footer>
+    <button type="submit">Generate OFP</button>
+  </form>
+</div>
 
 </body>
 </html>
